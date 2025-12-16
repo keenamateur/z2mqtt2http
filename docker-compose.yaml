@@ -1,0 +1,57 @@
+# docker-compose.yml
+services:
+  # mqtt01:
+  #   image: eclipse-mosquitto:latest
+  #   container_name: mqtt01
+  #   restart: unless-stopped
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - MQTT_PORT=1883
+  #     - MQTT_httpSOCKET=1883
+  #   volumes:
+  #     - ./mqtt/config:/mosquitto/config:rw
+  #     - ./mqtt/data:/mosquitto/data:rw
+  #     - ./mqtt/log:/var/log/mosquitto:rw
+  #   networks:
+  #     - mqtt_net
+
+  z2mqtt2http:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: keenamateurz/z2mqtt2http:latest
+    container_name: z2mqtt2http
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    env_file:
+     - .env
+    environment:
+      - MQTT_BROKER=${MQTT_BROKER}
+      - MQTT_PORT=${MQTT_PORT}
+      - MQTT_USER=${MQTT_USER}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+      - HTTP_CLIENT_IP=${HTTP_CLIENT_IP}
+      - HTTP_DEVICE_PORT=${HTTP_DEVICE_PORT}
+      - HTTP_DATA_PORT=${HTTP_DATA_PORT}
+    # volumes:
+    #   - data:/data
+    #  - ./data:/data
+    networks:
+      proxy_net:
+      vpn:
+        priority: 700
+        #priority: 1000
+
+networks:
+  proxy_net:
+    external: true
+    enable_ipv6: false
+  vpn:
+    external: true
+    enable_ipv6: false
+
+# volumes:
+#   data:
+#     driver: local

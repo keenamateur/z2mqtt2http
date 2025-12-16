@@ -1,0 +1,31 @@
+# Alapvető szabályok
+*.log
+node_modules/
+.DS_Store
+.thumbs
+.git
+
+# Homelab projektek speciális szabályai
+Homelab*/.env*
+Homelab*/.vscode/
+Homelab*/*/.env*
+
+# DE a Homelab mappák maguk és source code NEM legyenek ignore-olva
+!Homelab*/
+!Homelab*/*/
+!Homelab*/*/*
+# !mios2http/*
+# !mios2http/*/
+# !mios2http/*/*
+# !mios2http/app/*
+# z2mqtt2http/.env
+# z2mqtt2http/docker-compose.yaml
+# z2mqtt2http/Dockerfile
+# z2mqtt2http/env
+# z2mqtt2http/requirements.txt
+# z2mqtt2http/start.sh
+# z2mqtt2http/z2mqtt_data.json
+# z2mqtt2http/app/main.py
+# z2mqtt2http/docs/z2mqtt2http_v9g.md
+# z2mqtt2http/mqtt/config/mosquitto.conf
+# z2mqtt2http/mqtt/config/passwd
